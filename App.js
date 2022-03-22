@@ -18,7 +18,7 @@ export default function App(){
   }
 
   function limpar(){
-    displaySet(0);
+    limparDisplay();
     memoriaSet(0);
     operadorSet(0);
   }
@@ -29,25 +29,30 @@ export default function App(){
   
   function operacao(value){
     memoriaSet(display);
-    if(operador==0){
-      displaySet(0);
-      operadorSet(value);
-    }else calcular();
+    calculadoSet(true);
+    operadorSet(value);
+    calcular();
   }
 
   function inverter(){
     displaySet(parseFloat(display)*-1)
   }
 
+  function atualizar(valor){
+    displaySet(valor);
+    memoriaSet(valor);
+  }
+
   function calcular(){
-    if(operador=="+") displaySet(parseFloat(memoria)+parseFloat(display));
-    if(operador=="-") displaySet(parseFloat(memoria)-parseFloat(display));
-    if(operador=="*") displaySet(parseFloat(memoria)*parseFloat(display));
-    if(operador=="/") displaySet(parseFloat(memoria)/parseFloat(display));
+    if(operador=="+") atualizar(parseFloat(memoria)+parseFloat(display));
+    if(operador=="-") atualizar(parseFloat(memoria)-parseFloat(display));
+    if(operador=="*") atualizar(parseFloat(memoria)*parseFloat(display));
+    if(operador=="/") atualizar(parseFloat(memoria)/parseFloat(display));
     calculadoSet(true);
   }
 
   function ponto(){
+    calculadoSet(false);
     displaySet(display.toString()+".");
   }
 
@@ -62,6 +67,7 @@ export default function App(){
       alignItems:'center',
       justifyContent:'center'
       }}>
+        <Text>memoria: {memoria}</Text>
         <Text>{display}</Text>
         <View style={{
         flexDirection:"row",
