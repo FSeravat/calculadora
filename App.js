@@ -28,7 +28,6 @@ export default function App(){
   
   function operacao(value){
     memoriaSet(display);
-    calculadoSet(true);
     operadorSet(value);
     calcular();
   }
