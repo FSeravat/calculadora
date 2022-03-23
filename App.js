@@ -7,14 +7,13 @@ export default function App(){
   const[display, displaySet]=useState(0);
   const[memoria, memoriaSet]=useState(0);
   const[operador, operadorSet]=useState(0);
-  const[calculado,calculadoSet]=useState(false);
+  const[calculado,calculadoSet]=useState(true);
 
   function tecla(valor){
-    if(display==0||calculado){
-      calculadoSet(false);
+    if(calculado){
       displaySet(valor);
-    }
-    else displaySet(display.toString()+valor.toString())
+      calculadoSet(false);
+    }else displaySet(display.toString()+valor.toString())
   }
 
   function limpar(){
@@ -51,6 +50,11 @@ export default function App(){
     calculadoSet(true);
   }
 
+  function voltar(){
+    var str = display.toString();
+    str.length>1? displaySet(str.substring(0, str.length - 1)):displaySet(0);
+  }
+
   function ponto(){
     calculadoSet(false);
     displaySet(display.toString()+".");
@@ -74,7 +78,7 @@ export default function App(){
       }}>
         <Button onPress={()=>limparDisplay()} title="CE"/>
         <Button onPress={()=>limpar()} title="C"/>
-        <Button onPress={()=>limpar()} title="<"/>
+        <Button onPress={()=>voltar()} title="<"/>
         <Button onPress={()=>operacao("/")} title="/"/>
       </View>
         <View style={{
